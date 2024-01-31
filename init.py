@@ -34,7 +34,7 @@ def create_db():
 def give_rights():
     try:
         subprocess.run(['chown', '-R', 'ids:ids', '/var/ids'], check=True)
-        subprocess.run(['chmod', '-R', '664', '/var/ids'], check=True)
+        subprocess.run(['chmod', '-R', '764', '/var/ids'], check=True)
         print('Rights given')
     except subprocess.CalledProcessError as e :
         exit(2)
