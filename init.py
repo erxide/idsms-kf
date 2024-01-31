@@ -11,9 +11,10 @@ def create_ids_groups():
 def create_ids_user():
     try:
         subprocess.run(['useradd', '-m', '-p', '*', '-g', 'ids', 'ids'], check=True)
-        print('User ids created')
-    except subprocess.CalledProcessError as e :
-        exit(2)
+        print('User ids created or already exists')
+    except subprocess.CalledProcessError as e:
+        if "useradd: existing lock file" not in str(e.stderr):
+            print(f"Erreur lors de la création de l'utilisateur : {e}")
 
 def create_path_db():
     try:
