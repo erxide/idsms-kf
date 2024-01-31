@@ -3,7 +3,7 @@ import json
 
 def create_ids_groups():
     try:
-        subprocess.run(['groupadd', 'ids'], check=True)
+        subprocess.run(['groupadd', '-f', 'ids'], check=True)
         print('Group ids created')
     except subprocess.CalledProcessError as e :
         exit(2)
