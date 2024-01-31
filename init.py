@@ -12,9 +12,7 @@ def create_ids_user():
     try:
         subprocess.run(['useradd', '-m', '-p', '*', '-g', 'ids', 'ids'], check=True)
         print('User ids created or already exists')
-    except subprocess.CalledProcessError as e:
-        if "useradd: existing lock file" not in str(e.stderr):
-            print(f"Erreur lors de la création de l'utilisateur : {e}")
+    except subprocess.CalledProcessError as e: pass
 
 def create_path_db():
     try:
@@ -35,7 +33,7 @@ def create_db():
 
 def give_rights():
     try:
-        subprocess.run(['chown', '-R', 'ids:ids', '/var/ids'], check=True)
+        subprocess.run(['chown', '-RW', 'ids:ids', '/var/ids'], check=True)
         print('Rights given')
     except subprocess.CalledProcessError as e :
         exit(2)
