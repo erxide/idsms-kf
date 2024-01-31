@@ -20,6 +20,7 @@ def create_path_db():
         subprocess.run(['mkdir', '-p', '/var/ids'], check=True)
         print('Path /var/ids created or already exist')
     except subprocess.CalledProcessError as e :
+        print('Error : ', e)
         exit(2)
 
 def create_db():
