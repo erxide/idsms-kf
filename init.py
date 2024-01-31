@@ -17,8 +17,8 @@ def create_ids_user():
 
 def create_path_db():
     try:
-        subprocess.run(['mkdir', '/var/ids'], check=True)
-        print('Path /var/ids created')
+        subprocess.run(['mkdir', '-p', '/var/ids'], check=True)
+        print('Path /var/ids created or already exist')
     except subprocess.CalledProcessError as e :
         exit(2)
 
