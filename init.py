@@ -4,18 +4,21 @@ import json
 def create_ids_groups():
     try:
         subprocess.run(['groupadd', 'ids'], check=True)
+        print('Group ids created')
     except subprocess.CalledProcessError as e :
         exit(2)
 
 def create_ids_user():
     try:
         subprocess.run(['useradd', '-m', '-p', '*', '-G', 'ids', 'ids'], check=True)
+        print('User ids created')
     except subprocess.CalledProcessError as e :
         exit(2)
 
 def create_path_db():
     try:
         subprocess.run(['mkdir', '/var/ids'], check=True)
+        print('Path /var/ids created')
     except subprocess.CalledProcessError as e :
         exit(2)
 
@@ -23,6 +26,7 @@ def create_db():
     try:
         with open("/var/ids/db.json", "w") as fichier:
             json.dump({}, fichier)
+        print('Database created')
     except Exception as e :
         print('Error : ', e)
         exit(2)
@@ -30,6 +34,7 @@ def create_db():
 def give_rights():
     try:
         subprocess.run(['chown', '-R', 'ids:ids', '/var/ids'], check=True)
+        print('Rights given')
     except subprocess.CalledProcessError as e :
         exit(2)
 
