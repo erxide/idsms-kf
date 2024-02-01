@@ -24,6 +24,11 @@ def getdir_is_here():
     if not os.path.isdir("get/"): 
         print("Error : get directory doesn't exist")
         raise FileNotFoundError
+    
+def serviceapi_is_here():
+    if not os.path.isdir("serviceapi/"):
+        print("Error : serviceapi directory doesn't exist")
+        raise FileNotFoundError
 
 def AllIsOk(forapi : str = ''):
     try:
@@ -32,13 +37,17 @@ def AllIsOk(forapi : str = ''):
         config_is_here()
         db_is_here()
         getdir_is_here()
-        if forapi != '':
+        if forapi == 'api':
             tokenapi_is_here()
             tokenuser_is_here()
+        if forapi == 'serviceapi':
+            tokenapi_is_here()
+            tokenuser_is_here()
+            serviceapi_is_here()
         return True
     except FileNotFoundError:
         exit(2)
 
 if __name__ == "__main__":
-    if AllIsOk():
+    if AllIsOk('serviceapi'):
         print("All is ok")
