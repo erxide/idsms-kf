@@ -1,6 +1,13 @@
 import subprocess
 import json
 import os
+import secrets
+
+def generate_token(file):
+    if not os.path.isfile('token/'+ file):
+        tab = {'token' : secrets.token_hex(64 // 2)}
+        with open('token/' + file, 'w') as f:
+            json.dump(tab, f, indent=2)
 
 def create_ids_groups():
     try:
@@ -32,10 +39,26 @@ def create_db_file():
         print('Error : ', e)
         exit(2)
 
+def create_config_file():
+    if not os.path.isfile("config.json"):
+        with open("config.json", "w") as fichier:
+            json.dump({"files":{"test":"test.txt"},"watchport":False,"path_db": "/var/ids/"}, fichier)
+        print('Config file created')
+
+def create_token_dir():
+    try:
+        subprocess.run(['mkdir', '-p', 'token'], check=True)
+        print('Path token created or already exist')
+    except subprocess.CalledProcessError:
+        exit(2)
+
 def give_rights():
     try:
         subprocess.run(['chown', '-R', 'ids:ids', '/var/ids'], check=True)
+        subprocess.run(['chown', '-R', 'ids:ids', 'token/'], check=True)
         subprocess.run(['chmod', '-R', '664', '/var/ids/db.json'], check=True)
+        subprocess.run(['chmod', '-R', '774', 'token/'], check=True)
+        subprocess.run(['chmod', '-R', '664', 'token/tokenapi.json', 'token/tokenuser.json'], check=True)
         subprocess.run(['usermod', '-aG', 'ids', os.getlogin()], check=True)
         print('Rights given')
     except subprocess.CalledProcessError as e :
@@ -45,10 +68,14 @@ def main():
     if os.geteuid() != 0:
         print("Vous devez exécuter ce programme en tant qu'administrateur (root).")
         exit(2)
+    create_config_file()
     create_ids_groups()
     create_ids_user()
     create_path_db()
     create_db_file()
+    create_token_dir()
+    generate_token("tokenapi.json")
+    generate_token("tokenuser.json")
     give_rights()
 
 if __name__ == "__main__":
