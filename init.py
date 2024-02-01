@@ -3,6 +3,7 @@ import json
 import os
 import secrets
 from allisok import AllIsOk
+from ids import Ids
 
 def generate_token(file):
     if not os.path.isfile('token/'+ file):
@@ -34,7 +35,7 @@ def create_path_db():
 def create_db_file():
     try:
         with open("/var/ids/db.json", "w") as fichier:
-            json.dump({}, fichier)
+            json.dump({"datebuild":"","info":{}}, fichier)
         print('Database created')
     except Exception as e :
         print('Error : ', e)
