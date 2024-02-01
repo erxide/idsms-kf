@@ -8,6 +8,8 @@ from pathlib import Path
 
 dirparent = str(Path(__file__).parent.absolute()) + "/"
 
+user = os.getlogin()
+
 def generate_token(file):
     if not os.path.isfile('token/'+ file):
         tab = {'token' : secrets.token_hex(64 // 2)}
@@ -66,9 +68,9 @@ def create_raport_dir():
 
 def give_rights():
     try:
-        subprocess.run(['chown', '-R', f'{os.getlogin}:ids', '/var/ids'], check=True)
-        subprocess.run(['chown', '-R', f'{os.getlogin}:ids', '/var/ids/db.json'], check=True)
-        subprocess.run(['chown', '-R', f'{os.getlogin}:ids', dirparent], check=True)
+        subprocess.run(['chown', '-R', f'{user}:ids', '/var/ids'], check=True)
+        subprocess.run(['chown', '-R', f'{user}:ids', '/var/ids/db.json'], check=True)
+        subprocess.run(['chown', '-R', f'{user}:ids', dirparent], check=True)
         subprocess.run(['chmod', '-R', '664', '/var/ids/db.json'], check=True)
         subprocess.run(['chmod', '-R', '774', 'token/'], check=True)
         subprocess.run(['chmod', '-R', '774', 'raport/'], check=True)
