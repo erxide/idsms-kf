@@ -80,8 +80,6 @@ def main():
     give_rights()
     if AllIsOk():
         print("All is ok")
-    else :
-        print("Error : All is not ok")
 
 if __name__ == "__main__":
     main()
