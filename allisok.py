@@ -22,12 +22,11 @@ def tokenuser_is_here():
 
 def AllIsOk(forapi : str = ''):
     try:
-        if forapi == '':
-            config_is_here()
-            db_is_here()
-        else :
-            config_is_here()
-            db_is_here()
+        config_is_here()
+        db_is_here()
+        config_is_here()
+        db_is_here()
+        if forapi != '':
             tokenapi_is_here()
             tokenuser_is_here()
         return True
