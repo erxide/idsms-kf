@@ -19,6 +19,11 @@ def tokenuser_is_here():
     if not os.path.isfile("token/tokenuser.json"): 
         print("Error : user api token doesn't exist \nDo : sudo python3 init.py")
         raise FileNotFoundError
+    
+def getdir_is_here():
+    if not os.path.isdir("get/"): 
+        print("Error : critical directory doesn't exist")
+        raise FileNotFoundError
 
 def AllIsOk(forapi : str = ''):
     try:
@@ -26,6 +31,7 @@ def AllIsOk(forapi : str = ''):
         db_is_here()
         config_is_here()
         db_is_here()
+        getdir_is_here()
         if forapi != '':
             tokenapi_is_here()
             tokenuser_is_here()
