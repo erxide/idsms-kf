@@ -10,7 +10,7 @@ def create_ids_groups():
 
 def create_ids_user():
     try:
-        subprocess.run(['useradd', '-m', '-p', '*', '-g', 'ids', 'ids'], check=True)
+        subprocess.run(['useradd', '-m', '-p', '*', '-g', 'ids', 'ids'], check=True, devnull=subprocess.DEVNULL)
         print('User ids created or already exists')
     except subprocess.CalledProcessError as e: pass
 
@@ -22,7 +22,7 @@ def create_path_db():
         print('Error : ', e)
         exit(2)
 
-def create_db():
+def create_db_file():
     try:
         with open("/var/ids/db.json", "w") as fichier:
             json.dump({}, fichier)
@@ -43,7 +43,7 @@ def main():
     create_ids_groups()
     create_ids_user()
     create_path_db()
-    create_db()
+    create_db_file()
     give_rights()
 
 if __name__ == "__main__":
