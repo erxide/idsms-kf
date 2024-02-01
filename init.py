@@ -54,12 +54,21 @@ def create_token_dir():
     except subprocess.CalledProcessError:
         exit(2)
 
+def create_raport_dir():
+    try:
+        subprocess.run(['mkdir', '-p', 'raport'], check=True)
+        print('Path rapport created or already exist')
+    except subprocess.CalledProcessError:
+        exit(2)
+
 def give_rights():
     try:
         subprocess.run(['chown', '-R', 'ids:ids', '/var/ids'], check=True)
         subprocess.run(['chown', '-R', 'ids:ids', 'token/'], check=True)
+        subprocess.run(['chown', '-R', 'ids:ids', 'raport/'], check=True)
         subprocess.run(['chmod', '-R', '664', '/var/ids/db.json'], check=True)
         subprocess.run(['chmod', '-R', '774', 'token/'], check=True)
+        subprocess.run(['chmod', '-R', '774', 'raport/'], check=True)
         subprocess.run(['chmod', '-R', '664', 'token/tokenapi.json', 'token/tokenuser.json'], check=True)
         subprocess.run(['usermod', '-aG', 'ids', os.getlogin()], check=True)
         print('Rights given')
@@ -78,6 +87,7 @@ def main():
     create_token_dir()
     generate_token("tokenapi.json")
     generate_token("tokenuser.json")
+    create_raport_dir()
     give_rights()
     if AllIsOk():
         print("All is ok")

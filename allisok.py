@@ -29,6 +29,11 @@ def serviceapi_is_here():
     if not os.path.isdir("serviceapi/"):
         print("Error : serviceapi directory doesn't exist")
         raise FileNotFoundError
+    
+def rapport_is_here():
+    if not os.path.isdir("raport/"):
+        print("Error : raport directory doesn't exist")
+        raise FileNotFoundError
 
 def AllIsOk(forapi : str = ''):
     try:
@@ -37,6 +42,7 @@ def AllIsOk(forapi : str = ''):
         config_is_here()
         db_is_here()
         getdir_is_here()
+        rapport_is_here()
         if forapi == 'api':
             tokenapi_is_here()
             tokenuser_is_here()

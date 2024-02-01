@@ -1,4 +1,8 @@
 from datetime import datetime
+from deepdiff import DeepDiff
+import os
+import secrets
+from sys import argv
 from allisok import AllIsOk
 from get.getport import scan_ports
 from get.create_dico import create_dico
@@ -15,7 +19,6 @@ class Ids:
         self.file_db = self.path_db + "db.json"
         self.db = self.open_db(self.path_db + "db.json")
         self.db_data = self.db['info']
-
 
 
     def open_config(self):
@@ -56,11 +59,12 @@ class Ids:
         else: return []
 
     def build(self):
+        AllIsOk()
         info = self.create_db()
         with open(self.file_db, "w") as fichier:
             json.dump(info, fichier, indent=2)
-        print("Database build")
         self.update_db_data()
+        return "Database build"
 
     def update_db_data(self):
         AllIsOk()
@@ -68,22 +72,50 @@ class Ids:
         self.db_data = data['info']
 
     def check(self):
+        AllIsOk()
         if self.db_data != {}:
-            pass
+            info = self.create_db()
+            if self.db_data == info['info']:
+                return {"state" : "ok"}
+            else:
+                self.raport(info)
+                return {"state" : "divergent"}
         else:
             print("Error : db.json is empty \nDo : python3 ids.py build before")
             exit(2)
 
+    def raport(self, info):
+        AllIsOk()
+        diffs = {
+            "check date":self.get_time(),
+            "diff":self.checkplus(info)}
+        namerappor = secrets.token_hex(8 // 2)
+        with open("raport/" + namerappor + ".json", "w") as fichier:
+            json.dump(diffs, fichier, indent=2)
 
-    def checkplus(self):
-        pass
+    def checkplus(self, info):
+        diffs = []
+        diff = DeepDiff(self.db_data, info['info'])
+        for firstkey, value in diff.get('values_changed', {}).items():
+            diffs.append(f"The value of {firstkey} has changed from {value['old_value']} to {value['new_value']}.")
+        return diffs
 
     def help(self):
-        pass
+        print("Usage: python ids.py [command]")
+        print("Commandes:")
+        print("  build, b: Construit le fichier réference")
+        print("  check, c: Vérifie les fichiers sont toujours intègres")
 
     def main(self):
-        pass
+        if len(argv) > 1:
+            cmd = argv[1]
+            if cmd == 'build' or cmd == 'b': print(self.build())
+            elif cmd == 'check'or cmd == 'c': print(self.check())
+            elif cmd == 'help' or cmd == 'h': self.help()
+            # elif cmd == 'debug' : print(self.raport(self.create_db()))
+            else: print("Invalid command. Type 'help' or 'h' for more information")
+        else: print("Invalid command. Type 'help' or 'h' for more information")
 
 if __name__ == "__main__":
     ids = Ids()
-    ids.build()
+    ids.main()

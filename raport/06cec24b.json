@@ -1,0 +1,11 @@
+{
+  "check date": "2024-02-01 03:15:36",
+  "diff": [
+    "The value of root['files_info']['test']['hash']['SHA256'] has changed from c34a2290d60c7a4fcdbec045bc6018c128303e82f928c331588151c03c190587 to 90661c2a925a300de412bf5514d42e48281ac8547c7cf0449f74a52b07de35c4.",
+    "The value of root['files_info']['test']['hash']['SHA512'] has changed from d65c2e33707ae9b5959ff6d5d782b4f9e7bb1c87aa05f55b2bc70f0b297d6ac3ce34845d3971fa125dad9ad0336842ba5b0b96b16b698f3b3e4ee17cbbc5194e to aa67b21aa14260e0f5d46416a5380e17055871fb5a93efb1db6523f373e77219764d5a59e8083eca1d86c3fcfa35c25ce1357c9dbbf93e468eb708434ecd07db.",
+    "The value of root['files_info']['test']['hash']['MD5'] has changed from 37249b2e10f84902fa963a0f4cabee31 to 5c0920eb135a55b2afa00ed50a6996f0.",
+    "The value of root['files_info']['test']['lastmodif'] has changed from 1706753551.0861304 to 1706753686.3836539.",
+    "The value of root['files_info']['test']['creation'] has changed from 1706753551.0861304 to 1706753686.3836539.",
+    "The value of root['files_info']['test']['size'] has changed from 28 to 29."
+  ]
+}
