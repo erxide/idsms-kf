@@ -1,5 +1,6 @@
 import subprocess
 import json
+import os
 
 def create_ids_groups():
     try:
@@ -40,6 +41,9 @@ def give_rights():
         exit(2)
 
 def main():
+    if os.geteuid() != 0:
+        print("Vous devez exécuter ce programme en tant qu'administrateur (root).")
+        exit(2)
     create_ids_groups()
     create_ids_user()
     create_path_db()
