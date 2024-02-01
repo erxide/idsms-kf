@@ -20,12 +20,16 @@ def tokenuser_is_here():
         print("Error : user api token doesn't exist \nDo : sudo python3 init.py")
         raise FileNotFoundError
 
-def AllIsOk():
+def AllIsOk(forapi : str = ''):
     try:
-        config_is_here()
-        db_is_here()
-        tokenapi_is_here()
-        tokenuser_is_here()
+        if forapi == '':
+            config_is_here()
+            db_is_here()
+        else :
+            config_is_here()
+            db_is_here()
+            tokenapi_is_here()
+            tokenuser_is_here()
         return True
     except FileNotFoundError:
         exit(2)
