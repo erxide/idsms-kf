@@ -36,6 +36,7 @@ def give_rights():
     try:
         subprocess.run(['chown', '-R', 'ids:ids', '/var/ids'], check=True)
         subprocess.run(['chmod', '-R', '664', '/var/ids/db.json'], check=True)
+        subprocess.run(['usermod', '-aG', 'ids', os.getlogin()], check=True)
         print('Rights given')
     except subprocess.CalledProcessError as e :
         exit(2)
