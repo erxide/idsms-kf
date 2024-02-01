@@ -10,7 +10,7 @@ def create_ids_groups():
 
 def create_ids_user():
     try:
-        subprocess.run(['useradd', '-m', '-p', '*', '-g', 'ids', 'ids'], check=True, devnull=subprocess.DEVNULL)
+        subprocess.run(['useradd', '-m', '-p', '*', '-g', 'ids', 'ids'])
         print('User ids created or already exists')
     except subprocess.CalledProcessError as e: pass
 
