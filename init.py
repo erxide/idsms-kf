@@ -66,9 +66,9 @@ def create_raport_dir():
 
 def give_rights():
     try:
-        subprocess.run(['chown', '-R', 'ids:ids', '/var/ids'], check=True)
-        subprocess.run(['chown', '-R', ':ids', '/var/ids/db.json'], check=True)
-        subprocess.run(['chown', '-R', ':ids', dirparent], check=True)
+        subprocess.run(['chown', '-R', f'{os.getlogin}:ids', '/var/ids'], check=True)
+        subprocess.run(['chown', '-R', f'{os.getlogin}:ids', '/var/ids/db.json'], check=True)
+        subprocess.run(['chown', '-R', f'{os.getlogin}:ids', dirparent], check=True)
         subprocess.run(['chmod', '-R', '664', '/var/ids/db.json'], check=True)
         subprocess.run(['chmod', '-R', '774', 'token/'], check=True)
         subprocess.run(['chmod', '-R', '774', 'raport/'], check=True)
