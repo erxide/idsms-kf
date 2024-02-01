@@ -2,6 +2,7 @@ import subprocess
 import json
 import os
 import secrets
+from allisok import AllIsOk
 
 def generate_token(file):
     if not os.path.isfile('token/'+ file):
@@ -77,6 +78,10 @@ def main():
     generate_token("tokenapi.json")
     generate_token("tokenuser.json")
     give_rights()
+    if AllIsOk():
+        print("All is ok")
+    else :
+        print("Error : All is not ok")
 
 if __name__ == "__main__":
     main()
