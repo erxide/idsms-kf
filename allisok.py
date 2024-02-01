@@ -22,7 +22,7 @@ def tokenuser_is_here():
     
 def getdir_is_here():
     if not os.path.isdir("get/"): 
-        print("Error : critical directory doesn't exist")
+        print("Error : get directory doesn't exist")
         raise FileNotFoundError
 
 def AllIsOk(forapi : str = ''):
