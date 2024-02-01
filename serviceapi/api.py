@@ -1,6 +1,6 @@
 from pathlib import Path
 import subprocess
-from apiservice.ask_user import ask_username
+from serviceapi.ask_user import ask_username
 
 
 def create_service():

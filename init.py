@@ -4,6 +4,9 @@ import os
 import secrets
 from allisok import AllIsOk
 from ids import Ids
+from pathlib import Path
+
+dirparent = str(Path(__file__).parent.absolute()) + "/"
 
 def generate_token(file):
     if not os.path.isfile('token/'+ file):
@@ -44,7 +47,7 @@ def create_db_file():
 def create_config_file():
     if not os.path.isfile("config.json"):
         with open("config.json", "w") as fichier:
-            json.dump({"files":{"test":"test.txt"},"watchport":False,"path_db": "/var/ids/"}, fichier)
+            json.dump({"files":{"test":"test.txt"},"watchport":False,"path_db": "/var/ids/","apihost":"localhost","apiport":8080}, fichier)
         print('Config file created')
 
 def create_token_dir():
@@ -64,8 +67,7 @@ def create_raport_dir():
 def give_rights():
     try:
         subprocess.run(['chown', '-R', 'ids:ids', '/var/ids'], check=True)
-        subprocess.run(['chown', '-R', 'ids:ids', 'token/'], check=True)
-        subprocess.run(['chown', '-R', 'ids:ids', 'raport/'], check=True)
+        subprocess.run(['chown', '-R', ':ids', dirparent], check=True)
         subprocess.run(['chmod', '-R', '664', '/var/ids/db.json'], check=True)
         subprocess.run(['chmod', '-R', '774', 'token/'], check=True)
         subprocess.run(['chmod', '-R', '774', 'raport/'], check=True)

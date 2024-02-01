@@ -1,1 +1,1 @@
-{"files": {"test": "test.txt"}, "watchport": false, "path_db": "/var/ids/"}
+{"files": {"test": "test.txt"}, "watchport": false, "path_db": "/var/ids/","apihost":"localhost","apiport":8080}
